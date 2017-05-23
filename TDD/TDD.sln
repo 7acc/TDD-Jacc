@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "git dummy", "git dummy\git dummy.csproj", "{8D7614BF-917E-419F-AC22-DFCD19B94A7C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValidationEngine", "ValidationEngine\ValidationEngine.csproj", "{2455EC2B-3F2C-47ED-AFFD-5DB84958EA2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValidationEngineTests", "ValidationEngineTests\ValidationEngineTests.csproj", "{CAA4E194-363D-4F13-AD45-9475DCE22997}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{8D7614BF-917E-419F-AC22-DFCD19B94A7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D7614BF-917E-419F-AC22-DFCD19B94A7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D7614BF-917E-419F-AC22-DFCD19B94A7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2455EC2B-3F2C-47ED-AFFD-5DB84958EA2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2455EC2B-3F2C-47ED-AFFD-5DB84958EA2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2455EC2B-3F2C-47ED-AFFD-5DB84958EA2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2455EC2B-3F2C-47ED-AFFD-5DB84958EA2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAA4E194-363D-4F13-AD45-9475DCE22997}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAA4E194-363D-4F13-AD45-9475DCE22997}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAA4E194-363D-4F13-AD45-9475DCE22997}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAA4E194-363D-4F13-AD45-9475DCE22997}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
