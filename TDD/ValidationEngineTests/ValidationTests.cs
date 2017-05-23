@@ -4,11 +4,13 @@ using NUnit.Framework;
 using NUnit.Framework.Internal;
 using ValidationEngine;
 
+//_exercise_1_
 namespace ValidationEngineTests
 {
     [TestFixture]
     public class ValidationTests
     {
+        #region EmailValidation Tests
         [Test]
         public void TrueForValidAdress()
         {
@@ -71,6 +73,9 @@ namespace ValidationEngineTests
             sut.ValidateEmailAddress("jacc@email@.com"),
                 Throws.Exception.TypeOf<AdressContainsmultipleShnabelAException>());
         }
+
+
+        #endregion
 
 
     }

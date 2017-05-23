@@ -3,19 +3,20 @@ using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-
+//_exercise_1_
 namespace ValidationEngine
 {
     public class Validator
     {
         public bool ValidateEmailAddress(string emailAdress)
         {
-            if (emailAdress == null) throw new ArgumentNullException();
-            if (emailAdress.Any(char.IsDigit)) throw new AdressContainsNumbersException();
-            if (emailAdress.Count(x => x == '@') > 1) throw new AdressContainsmultipleShnabelAException();
-            if (emailAdress.Count(x => x == '.') > 1) throw new AdressdoublePunctioationException();
+            if (emailAdress == null)                    throw new ArgumentNullException();
+            if (emailAdress.Any(char.IsDigit))          throw new AdressContainsNumbersException();
+            if (emailAdress.Count(x => x == '@') > 1)   throw new AdressContainsmultipleShnabelAException();
+            if (emailAdress.Count(x => x == '.') > 1)   throw new AdressdoublePunctioationException();
 
             if (Regex.IsMatch(
+
                 input: emailAdress,
                 pattern: @"\A(?:[a-z!#$%&'*+/=?^_`{|}~-]*@(?:[a-z](?:[a-z-]+[a-z])?\.)+[a-z](?:[a-z-]*[a-z])?)\Z",
                 options: RegexOptions.IgnoreCase
@@ -26,6 +27,7 @@ namespace ValidationEngine
         }
 
     }
+    #region Exceptions
 
     public class AdressContainsNumbersException : Exception
     {
@@ -84,4 +86,6 @@ namespace ValidationEngine
             message = "you cant use punctioations like crazy!!";
         }
     }
+
+    #endregion
 }
