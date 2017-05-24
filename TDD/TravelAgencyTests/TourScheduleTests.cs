@@ -13,24 +13,23 @@ namespace TravelAgencyTests
     [TestFixture]
     class TourScheduleTests
     {
-        private TourSchedule sut;
+        private TourSchedule Sut;
 
         [SetUp]
         public void Setup()
         {
-            sut = new TourSchedule();
-
+            Sut = new TourSchedule();
         }
 
         [Test]
         public void CanCreateNewTour()
         {
-            var tourDate = new DateTime(2017, 8, 10,1,1,1);
+            var tourDate = new DateTime(2017, 8, 10, 1, 1, 1);
 
-            sut.CreateTour("Best tour ever",
+            Sut.CreateTour("Best tour ever nr1",
                 tourDate, 22);
 
-            var tours = sut.GetToursFor(tourDate);
+            var tours = Sut.GetToursFor(tourDate);
             var tour = tours[0];
 
             Assert.True(tours.Count == 1);    
@@ -38,7 +37,7 @@ namespace TravelAgencyTests
             Assert.True(
                 tour.TourDate == tourDate.Date
                 && tour.NbrOfSeats == 22 
-                && tour.Description == "Best tour ever");
+                && tour.Name == "Best tour ever nr1");
         }
 
         [Test]
@@ -47,15 +46,15 @@ namespace TravelAgencyTests
             var dateToBeReturned = new DateTime(2017,1,1);
             var dateNotToBeReturned = new DateTime(2020,2,2);
             
-            sut.CreateTour("this should be returned",dateToBeReturned,10);
-            sut.CreateTour("this should be returned", dateToBeReturned, 20);
-            sut.CreateTour("this should be returned", dateToBeReturned, 30);
+            Sut.CreateTour("this should be returned nr1",dateToBeReturned,10);
+            Sut.CreateTour("this should be returned nr2", dateToBeReturned, 20);
+            Sut.CreateTour("this should be returned nr3", dateToBeReturned, 30);
 
-            sut.CreateTour("this should not be returned", dateNotToBeReturned, 40);
-            sut.CreateTour("this should not be returned", dateNotToBeReturned, 50);
+            Sut.CreateTour("this should not be returned nr1", dateNotToBeReturned, 40);
+            Sut.CreateTour("this should not be returned nr2", dateNotToBeReturned, 50);
 
 
-            var returnedTours = sut.GetToursFor(dateToBeReturned);
+            var returnedTours = Sut.GetToursFor(dateToBeReturned);
          
             Assert.True(returnedTours.Count == 3);
             Assert.True(returnedTours.Count(x => x.TourDate == dateToBeReturned) == 3);
@@ -63,8 +62,22 @@ namespace TravelAgencyTests
         }
 
         [Test]
-        public void CreateToManyToursOnDate_ThrowsException()
+        public void CreateToManyToursOnDate_ThrowsException_AndSugestsAnotherDate()
         {
+            var dateToScheduel = new DateTime(2017,1,1);
+
+            Sut.CreateTour("fitt but you know it nr1", dateToScheduel, 99);
+            Sut.CreateTour("fitt but you know it nr2", dateToScheduel, 99);
+            Sut.CreateTour("fitt but you know it nr3", dateToScheduel, 99);
+
+
+            var ex = Assert.Throws<TourAllocationException>(
+                () => Sut.CreateTour("To many tours up in this place nr1", dateToScheduel, 99));
+
+            Assert.True(Sut.GetToursFor(dateToScheduel).Count == 3);
+            
+            Assert.True(ex.SugestedDate > dateToScheduel);
+
             
         }
     }

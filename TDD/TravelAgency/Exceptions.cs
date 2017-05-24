@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace TravelAgency
 {
-    class TourAllocationException : Exception
+    public class TourAllocationException : Exception
     {
+
+        public DateTime SugestedDate;
+
         public TourAllocationException()
         {
             
@@ -17,6 +20,14 @@ namespace TravelAgency
             :base(message)
         {
             message = "the number of tours on the given day has been exeeded, try another date ";
+        }
+
+        public TourAllocationException(string message,DateTime sugestedDate)
+            :base(message)
+        {
+            SugestedDate = sugestedDate;
+            message = $"the number of tours on the given day has been exeeded, the next available date is - {SugestedDate} ";
+           
         }
     }
 }
