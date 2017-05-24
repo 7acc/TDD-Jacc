@@ -30,4 +30,12 @@ namespace TravelAgency
            
         }
     }
+
+    public class TourNameUnavilableOnDateException : Exception
+    {
+        public TourNameUnavilableOnDateException()
+        {
+            
+        }
+    }
 }
