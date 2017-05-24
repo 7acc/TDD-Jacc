@@ -71,14 +71,14 @@ namespace TravelAgencyTests
             Sut.CreateTour("fitt but you know it nr3", dateToScheduel, 99);
 
 
-            var ex = Assert.Throws<TourAllocationException>(
+            var exception = Assert.Throws<TourAllocationException>(
                 () => Sut.CreateTour("To many tours up in this place nr1", dateToScheduel, 99));
+              
+            Assert.True(exception.SugestedDate == dateToScheduel.AddDays(1));
 
             Assert.True(Sut.GetToursFor(dateToScheduel).Count == 3);
-            
-            Assert.True(ex.SugestedDate > dateToScheduel);
 
-            
+
         }
     }
 }
