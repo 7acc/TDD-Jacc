@@ -39,6 +39,33 @@ namespace TravelAgencyTests
                 tour.TourDate == tourDate.Date
                 && tour.NbrOfSeats == 22 
                 && tour.Description == "Best tour ever");
-        }      
+        }
+
+        [Test]
+        public void GetToursForGivenDayOnly()
+        {
+            var dateToBeReturned = new DateTime(2017,1,1);
+            var dateNotToBeReturned = new DateTime(2020,2,2);
+            
+            sut.CreateTour("this should be returned",dateToBeReturned,10);
+            sut.CreateTour("this should be returned", dateToBeReturned, 20);
+            sut.CreateTour("this should be returned", dateToBeReturned, 30);
+
+            sut.CreateTour("this should not be returned", dateNotToBeReturned, 40);
+            sut.CreateTour("this should not be returned", dateNotToBeReturned, 50);
+
+
+            var returnedTours = sut.GetToursFor(dateToBeReturned);
+         
+            Assert.True(returnedTours.Count == 3);
+            Assert.True(returnedTours.Count(x => x.TourDate == dateToBeReturned) == 3);
+
+        }
+
+        [Test]
+        public void CreateToManyToursOnDate_ThrowsException()
+        {
+            
+        }
     }
 }
