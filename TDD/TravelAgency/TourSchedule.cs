@@ -11,6 +11,8 @@ namespace TravelAgency
     {
         private readonly List<Tour> Tours;
 
+
+
         public TourSchedule()
         {
             Tours = new List<Tour>();
@@ -21,7 +23,7 @@ namespace TravelAgency
 
 
             if(!TourNameAvailable(description,date)) throw new TourNameUnavilableOnDateException();
-            if (!TourDateAvailable(date)) throw new TourAllocationException("there was no available tour on the ", FindNextAvailableDate(date));
+            if (!TourDateAvailable(date)) throw new TourAllocationException("there was no available tour on the "+ date.ToString("D"), FindNextAvailableDate(date));
             if(nbrOfSeats < 1) throw new TourAllocationException("whats the point with a tour without space for costumers? huh?");
             
                           
@@ -41,6 +43,8 @@ namespace TravelAgency
         {
             return Tours.Where(x => x.TourDate.Date == tourDate.Date).ToList().AsReadOnly();
         }
+
+
 
 
         //------------------------------------------------HELPERS-----------------------------------------------------

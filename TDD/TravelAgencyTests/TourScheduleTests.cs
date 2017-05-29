@@ -74,7 +74,7 @@ namespace TravelAgencyTests
             var exception = Assert.Throws<TourAllocationException>(
                 () => Sut.CreateTour("To many tours up in this place nr1", dateToScheduel, 99));
 
-            Assert.True(exception.SugestedDate == dateToScheduel.AddDays(1));
+            Assert.AreEqual(exception.SugestedDate, dateToScheduel.AddDays(1));
 
             Assert.True(Sut.GetToursFor(dateToScheduel).Count == 3);
 
@@ -91,7 +91,7 @@ namespace TravelAgencyTests
             Assert.Throws<TourNameUnavilableOnDateException>(
                () => Sut.CreateTour("Only tour with this name", tourDate, 99));
 
-            Assert.True(Sut.GetToursFor(tourDate).Count ==1 );
+            Assert.True(Sut.GetToursFor(tourDate).Count == 1);
         }
 
         [Test]
