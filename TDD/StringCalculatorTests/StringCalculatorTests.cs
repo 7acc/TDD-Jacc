@@ -12,19 +12,19 @@ namespace StringCalculatorTests
     [TestFixture]
     class StringCalculatorTests
     {
-        private StringCalculator Sut ;
+        private StringCalculator _sut;
 
         [SetUp]
         public void SetUp()
         {
-            Sut = new StringCalculator();
+            _sut = new StringCalculator();
             
         }
 
         [Test]
         public void EmptyStringReturnsZero()
         {
-           var result = Sut.Add("");
+           var result = _sut.Add("");
           
             Assert.AreEqual(0, result);
         }
@@ -32,7 +32,7 @@ namespace StringCalculatorTests
         [Test]
         public void PassingOneNumberReturnsSameNumber()
         {
-            var result = Sut.Add("1");
+            var result = _sut.Add("1");
 
             Assert.AreEqual(1, result);
 
@@ -41,7 +41,7 @@ namespace StringCalculatorTests
         [Test]
         public void AddingNumbersReturnsSum()
         {
-            var result = Sut.Add("1,2,3");
+            var result = _sut.Add("1,2,3");
 
             Assert.AreEqual(6, result);
 
@@ -50,7 +50,7 @@ namespace StringCalculatorTests
         [Test]
         public void SeperatingNumbersWithNewLine()
         {
-            var result = Sut.Add("1\n2,3");
+            var result = _sut.Add("1\n2,3");
 
             Assert.AreEqual(6, result);
         }
@@ -58,12 +58,27 @@ namespace StringCalculatorTests
         [Test]
         public void UsingCustomDelimiter()
         {
-            var result = Sut.Add("//delimiter\n 10 delimiter 2, 3 delimiter 4");
+            var result = _sut.Add("//delimiter\n 10 delimiter 2, 3 delimiter 4");
 
             Assert.AreEqual(19, result);
 
         }
 
+        [Test]
+        public void PassingNegativeNumbers_ThrowsException()
+        {
+            var message = Assert.Throws<NegativeNumbersException>(
+                () => _sut.Add("-1, 1, -99")).Message;
 
+            Assert.IsTrue(message.Contains("-99") && message.Contains("-1"));
+
+        }
+        [Test]
+        public void IgnoresBigNumbers()
+        {
+
+            var result = _sut.Add("1000,1001");
+            Assert.AreEqual(1000,result);
+        }
     }
 }
