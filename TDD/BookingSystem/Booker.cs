@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using TravelAgency;
 
 namespace BookingSystem
@@ -14,7 +13,7 @@ namespace BookingSystem
         public Booker(ITourSchedule tourSchedueler)
         {
             this._tourSchedueler = tourSchedueler;
-            _bookings = new List<Booking>();
+            this._bookings = new List<Booking>();
 
         }
 
@@ -24,21 +23,19 @@ namespace BookingSystem
                 var tour = _tourSchedueler.GetToursFor(tourDate).FirstOrDefault(x => x.Name == tourname);
 
                 if (tour == null) throw new NoTourException(tourname, tourDate);
-                else if (!CheckSeatsAvailible(tour)) throw new NoSeatsAvailibleException(tour);
+                if (!CheckSeatsAvailible(tour)) throw new NoSeatsAvailibleException(tour);
 
                 else
                 {
                     _bookings.Add(new Booking(tour, passenger));
                 }
 
-            
-          
-
+                    
         }
 
         private bool CheckSeatsAvailible(Tour tour)
         {
-            return _bookings.Count(x => x.tour == tour) < tour.NbrOfSeats;
+            return _bookings.Count(x => x.Tour == tour) < tour.NbrOfSeats;
         }
 
         public IReadOnlyCollection<Booking> GetBookingsFor(Passenger passenger)
@@ -47,16 +44,14 @@ namespace BookingSystem
 
         
         }
+
+        public void CancleBooking(string tourName, DateTime tourdate, Passenger passenger)
+        {
+            var booking = _bookings.Find(x => x.Passenger == passenger && x.Tour.TourDate == tourdate);
+            _bookings.Remove(booking);
+        }
     }
 
     
-    public class NoSeatsAvailibleException : Exception
-    {
-        public NoSeatsAvailibleException(Tour tour)
-        {
-            Message = $"No seats Availible on that Tour \n {tour.Name} - {tour.TourDate}";
-        }
-
-        public override string Message { get; }
-    }
+    
 }

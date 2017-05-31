@@ -1,11 +1,6 @@
 ﻿using System;
-using System.CodeDom;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework.Internal;
 using NUnit.Framework;
 using TravelAgency;
 using BookingSystem;
@@ -27,7 +22,7 @@ namespace BookingSystemTests
             _sut = new Booker(_tourSchedueler);
 
             _defaultPassenger = new Passenger("Man", "Iron");
-
+           
         }
 
         [Test]
@@ -35,28 +30,21 @@ namespace BookingSystemTests
         {
 
             var tourDate = new DateTime(2017, 05, 30);
-
             var tour = new Tour
             {
-
                 Name = "Touring tour",
-                TourDate = tourDate,
-                NbrOfSeats = 1
+                TourDate = 
+                tourDate,NbrOfSeats = 1
             };
 
             _tourSchedueler.Tours.Add(tour);
-        
-
             _sut.CreateBooking("Touring tour", tourDate, _defaultPassenger);
+
 
             IReadOnlyCollection<Booking> bookings = _sut.GetBookingsFor(_defaultPassenger);
 
-
             Assert.AreEqual(1, bookings.Count);
-
-            var booking = bookings.ElementAt(0);
-            Assert.True(booking.tour.Name == "Touring tour");
-            Assert.True(booking.Passenger.LastName == "Man");
+            Assert.AreEqual(tour, bookings.ElementAt(0).Tour);
 
 
         }
@@ -73,7 +61,7 @@ namespace BookingSystemTests
         public void CreatBookingOnTourWithNoAvailibleSeats_ThrowsException()
         {
             var tourDate = DateTime.Now;
-            var tour =  new Tour
+            var tour = new Tour
             {
 
                 Name = "Touring tour",
@@ -86,12 +74,40 @@ namespace BookingSystemTests
             var passenger1 = _defaultPassenger;
             var passenger2 = new Passenger("Pepper", "SGT");
 
-            _sut.CreateBooking("Touring tour",tourDate,passenger1);
+            _sut.CreateBooking("Touring tour", tourDate, passenger1);
 
             Assert.Throws<NoSeatsAvailibleException>(
                 () => _sut.CreateBooking("Touring tour", tourDate, passenger2));
         }
+
+        [Test]
+        public void PassengerCanCancleBooking()
+        {
+            var tourdate = new DateTime(2017, 05, 31);
+            var tour = new Tour
+            {
+                Name = "Touring tour",
+                TourDate =  tourdate,          
+                NbrOfSeats = 1
+            };
+
+            _tourSchedueler.Tours.Add(tour);
+            _sut.CreateBooking("Touring tour", tourdate, _defaultPassenger);
+            int countBookingsForPassenger = _sut.GetBookingsFor(_defaultPassenger).Count;
+
+
+            _sut.CancleBooking("Touring tour", tourdate, _defaultPassenger);
+            int countBookingsAfterCancle = _sut.GetBookingsFor(_defaultPassenger).Count;
+
+
+            Assert.AreEqual(1,countBookingsForPassenger);
+            Assert.AreEqual(0,countBookingsAfterCancle);
+            
+
+
+
+        }
     }
 
-    
+
 }

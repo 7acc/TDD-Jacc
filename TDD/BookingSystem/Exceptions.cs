@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TravelAgency;
 
 namespace BookingSystem
 {
@@ -11,6 +8,16 @@ namespace BookingSystem
         public NoTourException(string tourName, DateTime tourDate)
         {
             Message = $"No tour found with that name or date: \"{tourName}\" at {tourDate} ";
+        }
+
+        public override string Message { get; }
+    }
+
+    public class NoSeatsAvailibleException : Exception
+    {
+        public NoSeatsAvailibleException(Tour tour)
+        {
+            Message = $"No seats Availible on that Tour \n {tour.Name} - {tour.TourDate}";
         }
 
         public override string Message { get; }
