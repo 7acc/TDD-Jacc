@@ -7,7 +7,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace TravelAgency
 {
-    public class TourSchedule
+    public class TourSchedule : ITourSchedule
     {
         private readonly List<Tour> Tours;
 
@@ -49,16 +49,16 @@ namespace TravelAgency
 
         //------------------------------------------------HELPERS-----------------------------------------------------
 
-        public bool TourDateAvailable(DateTime date)
+       private bool TourDateAvailable(DateTime date)
         {
             return Tours.Count(x => x.TourDate.Date == date.Date) < 3;
         }
-        public bool TourNameAvailable(string TourName, DateTime date)
+        private bool TourNameAvailable(string TourName, DateTime date)
         {
             return Tours.Count(x => x.TourDate == date && x.Name == TourName) == 0;
         }
 
-        public DateTime FindNextAvailableDate(DateTime unavailableDate)
+        private DateTime FindNextAvailableDate(DateTime unavailableDate)
         {
             DateTime search = unavailableDate ;
             do

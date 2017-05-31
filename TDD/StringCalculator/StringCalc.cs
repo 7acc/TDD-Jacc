@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace StringCalc
 {
     public class StringCalculator
     {
 
-        private List<string> _delimiters = new List<string> { ",", "\n" };
-        private string CustomDelimiterThingy = "//";
+        private readonly List<string> _delimiters = new List<string> { ",", "\n" };
+        private string _customDelimiterThingy = "//";
 
 
 
@@ -23,7 +20,7 @@ namespace StringCalc
 
 
             List<int> splitNumbers;
-            if (numbers.StartsWith(CustomDelimiterThingy))
+            if (numbers.StartsWith(_customDelimiterThingy))
             {
                 splitNumbers = SplitNumbersWithCustomDelimiter(numbers);
             }
@@ -46,7 +43,7 @@ namespace StringCalc
             _delimiters.Add(delimiter);
 
 
-            return SplitNumbers(numbers.Remove(0, CustomDelimiterThingy.Length + delimiter.Length));
+            return SplitNumbers(numbers.Remove(0, _customDelimiterThingy.Length + delimiter.Length));
         }
 
         private List<int> SplitNumbers(string numbers)
@@ -68,7 +65,7 @@ namespace StringCalc
         {
             if (numbers.Any(x => x < 0)) throw new NegativeNumbersException(numbers.Where(x => x < 0).ToList());
             numbers.RemoveAll(x => x > 1000);               
-
+          
         }
     }
 
