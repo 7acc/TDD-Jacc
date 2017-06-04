@@ -15,24 +15,28 @@ namespace VideoStoreTests
         private Movie _defaultMovie;
         private Customer _defaultCustomer;
 
-
+        [SetUp]
         public void SetUp()
         {
             _sut = new RentalSystem();
 
             _defaultMovie = new Movie
             {
-                
+                MovieTitle = "jakten på det försvunna testet",
+                Id = 1
+
             };
             _defaultCustomer = new Customer
             {
-
+                FirstName = "",
+                LastName = "",
+                Ssn = "1990-12-17-1111"
             };
 
 
 
         }
-
+        [Test]
         public void CanAddRental()
         {
             _sut.AddRental(_defaultMovie.MovieTitle, _defaultCustomer.Ssn);
@@ -44,6 +48,11 @@ namespace VideoStoreTests
             Assert.Equals(rental.MovieTitle, _defaultMovie.MovieTitle);
             Assert.Equals(rental.Ssn, _defaultCustomer.Ssn);
 
+        }
+        [Test]
+        public void CantAddMoreThan3CopiesOftheSameMovie()
+        {
+            
         }
     }
 }
