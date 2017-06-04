@@ -49,7 +49,6 @@ namespace BookingSystemTests
 
         }
 
-
         [Test]
         public void CreateBookingOnNonExistingTour_ThrowsException()
         {
