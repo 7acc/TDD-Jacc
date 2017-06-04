@@ -38,7 +38,7 @@ namespace VideoStoreTests
 
 
         }
-
+        [Test]
         public void CanAddRental()
         {
             _sut.AddRental(_defaultMovie.MovieTitle, _defaultCustomer.Ssn);
@@ -64,7 +64,7 @@ namespace VideoStoreTests
             Assert.True(rentals.Count == 1);
             Assert.Equals(rental.Ssn, _defaultCustomer.Ssn);
         }
-
+        [Test]
         public void AllRentalsWillGet3DayslaterDueDate()
         {
             var date = DateTime.Now.Date;
@@ -74,6 +74,23 @@ namespace VideoStoreTests
 
             Assert.True(rental.DueDate.Date == date.Date.AddDays(3));
          
+
+        }
+
+        [Test]
+        public void CanRentManyMovies()
+        {
+            var movie1 = _defaultMovie;
+            var movie2 = new Movie {MovieTitle = "Testet för länge sedan"};
+
+            _sut.AddRental(movie1.MovieTitle, _defaultCustomer.Ssn);
+            _sut.AddRental(movie2.MovieTitle, _defaultCustomer.Ssn);
+
+
+            var rentals = _sut.GetRentalsFor(_defaultCustomer.Ssn);
+
+
+            Assert.IsTrue(rentals.Count == 2);
 
         }
     }
