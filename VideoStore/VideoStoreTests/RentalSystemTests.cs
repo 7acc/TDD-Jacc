@@ -117,6 +117,21 @@ namespace VideoStoreTests
 
         }
 
+        [Test]
+        public void RentingSameMovie_ThrowsException()
+        {
+            _sut.AddRental(_defaultMovie.MovieTitle, _defaultCustomer.Ssn);
+            
+
+            Assert.Throws<RentalAllocationException>(
+           () => _sut.AddRental(_defaultMovie.MovieTitle, _defaultCustomer.Ssn));
+
+            var rentals = _sut.GetRentalsFor(_defaultCustomer.Ssn);
+
+            Assert.IsTrue(rentals.Count == 1);
+
+        }
+
     }
 
     internal class RentalAllocationException : Exception
