@@ -24,7 +24,7 @@ namespace VideoStoreTests
             {
                 MovieTitle = "jakten på det försvunna testet",
                 Id = 1
-
+                
             };
             _defaultCustomer = new Customer
             {
@@ -36,7 +36,7 @@ namespace VideoStoreTests
 
 
         }
-        [Test]
+
         public void CanAddRental()
         {
             _sut.AddRental(_defaultMovie.MovieTitle, _defaultCustomer.Ssn);
@@ -49,11 +49,18 @@ namespace VideoStoreTests
             Assert.Equals(rental.Ssn, _defaultCustomer.Ssn);
 
         }
-        [Test]
-        public void AllRentalsWillGet3DayslaterDueDate()
-        {
-            
-        }
 
+        [Test]
+        public void CanGettRentalBySsn()
+        {
+            _sut.AddRental(_defaultMovie.MovieTitle, _defaultCustomer.Ssn);
+            IReadOnlyCollection<Rental> rentals = _sut.GetRentalsFor(_defaultCustomer.Ssn);
+
+            var rental = rentals.ElementAt(0);
+
+
+            Assert.True(rentals.Count == 1);
+            Assert.Equals(rental.Ssn, _defaultCustomer.Ssn);
+        }
     }
 }
