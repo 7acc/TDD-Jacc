@@ -73,7 +73,7 @@ namespace VideoStoreTests
             var rental = _sut.GetRentalsFor(_defaultCustomer.Ssn).ElementAt(0);
 
             Assert.True(rental.DueDate.Date == date.Date.AddDays(3));
-
+         
 
         }
     }

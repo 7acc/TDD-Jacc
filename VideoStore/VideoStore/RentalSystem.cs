@@ -18,7 +18,7 @@ namespace VideoStore
             throw new NotImplementedException();
         }
 
-        public List<Rental> GetRentalsFor(string socialSecurityNumber)
+        public IReadOnlyCollection<Rental> GetRentalsFor(string socialSecurityNumber)
         {
             throw new NotImplementedException();
         }
