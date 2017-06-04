@@ -93,5 +93,33 @@ namespace VideoStoreTests
             Assert.IsTrue(rentals.Count == 2);
 
         }
+
+        [Test]
+        public void RentingMoreThan3Movies_ThrowsExceoption()
+        {
+            var movie1 = _defaultMovie;
+            var movie2 = new Movie { MovieTitle = "Testet för länge sedan" };
+            var movie3 = new Movie { MovieTitle = "JungelTestet"};
+            var movie4 = new Movie { MovieTitle = "Tests of the Caribean"};
+
+            _sut.AddRental(movie1.MovieTitle,_defaultCustomer.Ssn);
+            _sut.AddRental(movie2.MovieTitle, _defaultCustomer.Ssn);
+            _sut.AddRental(movie3.MovieTitle, _defaultCustomer.Ssn);
+
+
+            Assert.Throws<RentalAllocationException>(
+                () => _sut.AddRental(movie4.MovieTitle, _defaultCustomer.Ssn));
+
+            var rentals = _sut.GetRentalsFor(_defaultCustomer.Ssn);
+
+            Assert.True(rentals.Count == 3);
+
+
+        }
+
+    }
+
+    internal class RentalAllocationException : Exception
+    {
     }
 }
