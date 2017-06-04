@@ -50,9 +50,10 @@ namespace VideoStoreTests
 
         }
         [Test]
-        public void CantAddMoreThan3CopiesOftheSameMovie()
+        public void AllRentalsWillGet3DayslaterDueDate()
         {
             
         }
+
     }
 }
