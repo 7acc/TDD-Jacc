@@ -14,6 +14,8 @@ namespace VideoStoreTests
         private IRentals _sut;
         private Movie _defaultMovie;
         private Customer _defaultCustomer;
+        private Rental _defaultRental;
+
 
         [SetUp]
         public void SetUp()
@@ -24,7 +26,7 @@ namespace VideoStoreTests
             {
                 MovieTitle = "jakten på det försvunna testet",
                 Id = 1
-                
+
             };
             _defaultCustomer = new Customer
             {
@@ -32,7 +34,7 @@ namespace VideoStoreTests
                 LastName = "",
                 Ssn = "1990-12-17-1111"
             };
-
+          
 
 
         }
@@ -43,7 +45,7 @@ namespace VideoStoreTests
 
             IReadOnlyCollection<Rental> rentals = _sut.GetRentalsFor(_defaultCustomer.Ssn);
             var rental = rentals.ElementAt(0);
-        
+
             Assert.True(rentals.Count == 1);
             Assert.Equals(rental.MovieTitle, _defaultMovie.MovieTitle);
             Assert.Equals(rental.Ssn, _defaultCustomer.Ssn);
@@ -61,6 +63,18 @@ namespace VideoStoreTests
 
             Assert.True(rentals.Count == 1);
             Assert.Equals(rental.Ssn, _defaultCustomer.Ssn);
+        }
+
+        public void AllRentalsWillGet3DayslaterDueDate()
+        {
+            var date = DateTime.Now.Date;
+            _sut.AddRental(_defaultMovie.MovieTitle, _defaultCustomer.Ssn);
+
+            var rental = _sut.GetRentalsFor(_defaultCustomer.Ssn).ElementAt(0);
+
+            Assert.True(rental.DueDate.Date == date.Date.AddDays(3));
+
+
         }
     }
 }

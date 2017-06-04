@@ -10,5 +10,6 @@ namespace VideoStore
     {
        public string MovieTitle { get; set; }
        public string Ssn { get; set; }
+       public DateTime DueDate { get; set; }
     }
 }
