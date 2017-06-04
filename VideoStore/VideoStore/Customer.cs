@@ -8,7 +8,7 @@ namespace VideoStore
 {
    public class Customer
     {
-       public int Ssn { get; set; }
+       public string Ssn { get; set; }
        public string FirstName { get; set; }
        public string LastName { get; set; }
 

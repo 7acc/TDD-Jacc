@@ -8,5 +8,7 @@ namespace VideoStore
 {
    public class Rental
     {
+       public string MovieTitle { get; set; }
+       public string Ssn { get; set; }
     }
 }
