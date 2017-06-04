@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NSubstitute;
 using NUnit.Framework;
 using VideoStore;
 
@@ -12,6 +13,7 @@ namespace VideoStoreTests
     class RentalSystemTests
     {
         private IRentals _sut;
+        private IDateTimex _dateTime;
         private Movie _defaultMovie;
         private Customer _defaultCustomer;
         private Rental _defaultRental;
@@ -21,6 +23,7 @@ namespace VideoStoreTests
         public void SetUp()
         {
             _sut = new RentalSystem();
+            _dateTime = Substitute.For<IDateTimex>();
 
             _defaultMovie = new Movie
             {
@@ -132,9 +135,32 @@ namespace VideoStoreTests
 
         }
 
+        [Test]
+        public void RentingWithLateDueDate_ThrowsEsception()
+        {
+            var movie1 = _defaultMovie;
+            var movie2 = new Movie { MovieTitle = "Testet för länge sedan" };
+            _sut.AddRental(movie1.MovieTitle,_defaultCustomer.Ssn);
+
+
+            _dateTime.Now().Returns(DateTime.Now.AddDays(4));
+
+            Assert.Throws<DueDateException>(() => _sut.AddRental(movie2.MovieTitle, _defaultCustomer.Ssn));
+            Assert.True(_sut.GetRentalsFor(_defaultCustomer.Ssn).Count == 1);
+
+
+        }
+
     }
 
     internal class RentalAllocationException : Exception
     {
+
     }
+    internal class DueDateException : Exception
+    {
+
+    }
+
+
 }

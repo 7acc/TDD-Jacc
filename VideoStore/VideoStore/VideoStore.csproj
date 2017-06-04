@@ -48,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Customer.cs" />
+    <Compile Include="DateTimex.cs" />
+    <Compile Include="Interfaces\IDateTimex.cs" />
     <Compile Include="Interfaces\IRentals.cs" />
     <Compile Include="Interfaces\IVideoStore.cs" />
     <Compile Include="Movie.cs" />
