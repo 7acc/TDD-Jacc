@@ -49,5 +49,18 @@ namespace VideoStoreTests
             Assert.Equals(rental.Ssn, _defaultCustomer.Ssn);
 
         }
+
+        [Test]
+        public void CanGettRentalBySsn()
+        {
+            _sut.AddRental(_defaultMovie.MovieTitle, _defaultCustomer.Ssn);
+            IReadOnlyCollection<Rental> rentals = _sut.GetRentalsFor(_defaultCustomer.Ssn);
+
+            var rental = rentals.ElementAt(0);
+
+
+            Assert.True(rentals.Count == 1);
+            Assert.Equals(rental.Ssn, _defaultCustomer.Ssn);
+        }
     }
 }
