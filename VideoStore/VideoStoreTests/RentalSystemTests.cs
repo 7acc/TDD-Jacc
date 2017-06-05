@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NSubstitute;
 using NUnit.Framework;
 using VideoStore;
@@ -16,7 +14,7 @@ namespace VideoStoreTests
         private IDateTimex _dateTime;
         private Movie _defaultMovie;
         private Customer _defaultCustomer;
-        private Rental _defaultRental;
+   
 
 
         [SetUp]
@@ -36,11 +34,12 @@ namespace VideoStoreTests
                 FirstName = "",
                 LastName = "",
                 Ssn = "1990-12-17-1111"
-            };
-          
-
-
+            };         
         }
+
+
+
+
         [Test]
         public void CanAddRental()
         {
@@ -50,8 +49,8 @@ namespace VideoStoreTests
             var rental = rentals.ElementAt(0);
 
             Assert.True(rentals.Count == 1);
-            Assert.Equals(rental.MovieTitle, _defaultMovie.MovieTitle);
-            Assert.Equals(rental.Ssn, _defaultCustomer.Ssn);
+            Assert.AreEqual(rental.MovieTitle, _defaultMovie.MovieTitle);
+            Assert.AreEqual(rental.Ssn, _defaultCustomer.Ssn);
 
         }
 
@@ -65,7 +64,7 @@ namespace VideoStoreTests
 
 
             Assert.True(rentals.Count == 1);
-            Assert.Equals(rental.Ssn, _defaultCustomer.Ssn);
+            Assert.AreEqual(rental.Ssn, _defaultCustomer.Ssn);
         }
         [Test]
         public void AllRentalsWillGet3DayslaterDueDate()
@@ -153,14 +152,7 @@ namespace VideoStoreTests
 
     }
 
-    internal class RentalAllocationException : Exception
-    {
-
-    }
-    internal class DueDateException : Exception
-    {
-
-    }
+    
 
 
 }
