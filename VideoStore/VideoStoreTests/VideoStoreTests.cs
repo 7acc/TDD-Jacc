@@ -91,7 +91,21 @@ namespace VideoStoreTests
                 () => _sut.RentMovie(_defaultMovie.MovieTitle, "2017-01-01"));
 
             _rentalSystem.DidNotReceive().AddRental(Arg.Any<string>(), Arg.Any<string>());
+        }
 
+        [Test]
+        public void CanReturnMovie()
+        {
+
+            _sut.AddMovie(_defaultMovie);
+            _sut.RegisterCustomer(_defaultCustomer.Name, _defaultCustomer.Ssn);
+
+            _sut.RentMovie(_defaultMovie.MovieTitle,_defaultCustomer.Ssn);
+
+            _sut.ReturnMovie(_defaultMovie.MovieTitle, _defaultCustomer.Ssn);
+
+            _rentalSystem.Received().RemoveRental(Arg.Is(_defaultMovie.MovieTitle), Arg.Is(_defaultCustomer.Ssn));
+            
         }
              
     }
