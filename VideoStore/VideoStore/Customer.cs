@@ -8,9 +8,15 @@ namespace VideoStore
 {
    public class Customer
     {
+       public Customer(string name, string socialSecurityNumber)
+       {
+           this.Name = name;
+           this.Ssn = socialSecurityNumber;
+       }
+
        public string Ssn { get; set; }
-       public string FirstName { get; set; }
-       public string LastName { get; set; }
+       public string Name { get; set; }
+      
 
     }
 }

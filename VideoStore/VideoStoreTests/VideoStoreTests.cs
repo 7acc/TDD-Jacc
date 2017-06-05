@@ -100,16 +100,5 @@ namespace VideoStoreTests
     {
     }
 
-    internal class InvalidSsnException : Exception
-    {
-    }
-
-    internal class CostumerAllocationException : Exception
-    {
-    }
-
-    internal class MovieAllocationException : Exception
-    {
-        
-    }
+   
 }
