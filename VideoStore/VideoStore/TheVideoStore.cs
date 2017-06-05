@@ -30,6 +30,11 @@ namespace VideoStore
             throw new NotImplementedException();
         }
 
+       public List<Movie> LibraryOfMovies()
+       {
+           throw new NotImplementedException();
+       }
+
        public IReadOnlyCollection<Customer> GetCustomers()
         {
             throw new NotImplementedException();

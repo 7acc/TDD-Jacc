@@ -79,13 +79,26 @@ namespace VideoStoreTests
                 () => _sut.RentMovie("Harry Potter och den vises test", "1990-01-01"));
 
           _rentalSystem.DidNotReceive().AddRental(Arg.Any<string>(), Arg.Any<string>());
-        }   
+        }
+
+        [Test]
+        public void UnRegisteredCostumersCantRentMovies()
+        {
+            _sut.AddMovie(_defaultMovie);
+            _sut.RegisterCustomer("Booby", "1730-12-24-1234");
+
+            Assert.Throws<UnRegisteredException>(
+                () => _sut.RentMovie(_defaultMovie.MovieTitle, "2017-01-01"));
+
+            _rentalSystem.DidNotReceive().AddRental(Arg.Any<string>(), Arg.Any<string>());
+
+        }
              
     }
 
-
-
-
+    internal class UnRegisteredException :Exception
+    {
+    }
 
     internal class InvalidSsnException : Exception
     {
