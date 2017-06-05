@@ -98,13 +98,19 @@ namespace VideoStoreTests
         {
 
             _sut.AddMovie(_defaultMovie);
-            _sut.RegisterCustomer(_defaultCustomer.Name, _defaultCustomer.Ssn);
+            _sut.RegisterCustomer("Bobby", "2017-01-01");
 
-            _sut.RentMovie(_defaultMovie.MovieTitle,_defaultCustomer.Ssn);
+            _sut.RentMovie(_defaultMovie.MovieTitle, "2017-01-01");
 
-            _sut.ReturnMovie(_defaultMovie.MovieTitle, _defaultCustomer.Ssn);
 
-            _rentalSystem.Received().RemoveRental(Arg.Is(_defaultMovie.MovieTitle), Arg.Is(_defaultCustomer.Ssn));
+            List<Rental> rentals = new List<Rental>
+            {
+                new Rental(_defaultMovie.MovieTitle,"2017-01-01",DateTime.Now)
+            };
+            _rentalSystem.GetRentalsFor("2017-01-01").Returns(rentals);
+
+            _sut.ReturnMovie(_defaultMovie.MovieTitle, "2017-01-01");
+            _rentalSystem.Received().RemoveRental(Arg.Is(_defaultMovie.MovieTitle), Arg.Is("2017-01-01"));
             
         }
              
