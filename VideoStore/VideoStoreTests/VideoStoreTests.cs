@@ -4,6 +4,8 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using NSubstitute;
+using NSubstitute.Core;
 using NUnit.Framework;
 using VideoStore;
 
@@ -26,7 +28,7 @@ namespace VideoStoreTests
             _defaultMovie = new Movie {MovieTitle = "Testet som gick upp för en kulle och försvann"};
 
 
-            _rentalSystem = new RentalSystem(_datetime);
+            _rentalSystem = Substitute.For<IRentals>();
 
             _sut = new TheVideoStore(_rentalSystem);
         }
@@ -68,6 +70,15 @@ namespace VideoStoreTests
         {
             Assert.Throws<InvalidSsnException>(
                 () => _sut.RegisterCustomer("Booby", "111-8008"));
+        }
+
+        [Test]
+        public void CantRentNonExistingMovie_ThrowsException()
+        {
+            Assert.Throws<MovieAllocationException>(
+                () => _sut.RentMovie("Harry Potter och den vises test", "1990-01-01"));
+
+          _rentalSystem.DidNotReceive().AddRental(Arg.Any<string>(), Arg.Any<string>());
         }   
              
     }
