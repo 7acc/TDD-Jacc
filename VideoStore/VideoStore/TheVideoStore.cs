@@ -72,7 +72,7 @@ namespace VideoStore
 
        public IReadOnlyCollection<Customer> GetCustomers()
         {
-            throw new NotImplementedException();
+           return CustomerDataBase;
         }
 
 
