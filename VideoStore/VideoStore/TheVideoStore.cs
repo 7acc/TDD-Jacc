@@ -35,12 +35,6 @@ namespace VideoStore
             
         }
 
-        private bool CheckValidSsn(string ssn)
-        {
-            Regex ssnReg = new Regex(@"^\d{4}-\d{2}-\d{2}$");
-
-            return ssnReg.IsMatch(ssn);
-        }
 
         public void AddMovie(Movie movie)
         {
@@ -58,7 +52,10 @@ namespace VideoStore
 
         public void RentMovie(string movieTitle, string socialSecurityNumber)
         {
-            throw new NotImplementedException();
+            if(!MovieBank.Any(x => x.MovieTitle == movieTitle)) throw new RentalAllocationException($"The movie: {movieTitle} is not in stock");
+            if(!CustomerDataBase.Any(x => x.Ssn == socialSecurityNumber)) throw new UnRegisteredException();
+
+            _rentalSystem.AddRental(movieTitle,socialSecurityNumber);         
         }
 
 
@@ -77,6 +74,18 @@ namespace VideoStore
         {
             throw new NotImplementedException();
         }
+
+
+
+
+
+        //------------------helpers---------------------
+        private bool CheckValidSsn(string ssn)
+        {
+            Regex ssnReg = new Regex(@"^\d{4}-\d{2}-\d{2}$");
+
+            return ssnReg.IsMatch(ssn);
+        }
     }
     public class InvalidSsnException : Exception
     {
@@ -90,4 +99,11 @@ namespace VideoStore
     {
 
     }
+   public class UnRegisteredException : Exception
+    {
+    }
+    public class RentingException : Exception
+    {
+    }
+
 }

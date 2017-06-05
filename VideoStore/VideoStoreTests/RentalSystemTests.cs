@@ -152,6 +152,15 @@ namespace VideoStoreTests
 
         }
 
+        [Test]
+        public void CanRemoveRental()
+        {
+            _sut.AddRental(_defaultMovie.MovieTitle, _defaultCustomer.Ssn);
+            _sut.RemoveRental(_defaultMovie.MovieTitle,_defaultCustomer.Ssn);
+
+            Assert.AreEqual(_sut.GetRentalsFor(_defaultCustomer.Ssn).Count, 0);
+        }
+
     }
 
     

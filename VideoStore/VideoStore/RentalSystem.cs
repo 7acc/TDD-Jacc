@@ -76,5 +76,6 @@ namespace VideoStore
         {
             this.lateRentals = lateRentals;
         }
+        
     }
 }

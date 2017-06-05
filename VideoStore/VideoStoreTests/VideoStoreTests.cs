@@ -75,7 +75,7 @@ namespace VideoStoreTests
         [Test]
         public void CantRentNonExistingMovie_ThrowsException()
         {
-            Assert.Throws<MovieAllocationException>(
+            Assert.Throws<RentalAllocationException>(
                 () => _sut.RentMovie("Harry Potter och den vises test", "1990-01-01"));
 
           _rentalSystem.DidNotReceive().AddRental(Arg.Any<string>(), Arg.Any<string>());
@@ -85,7 +85,7 @@ namespace VideoStoreTests
         public void UnRegisteredCostumersCantRentMovies()
         {
             _sut.AddMovie(_defaultMovie);
-            _sut.RegisterCustomer("Booby", "1730-12-24-1234");
+            _sut.RegisterCustomer("Booby", "1730-12-24");
 
             Assert.Throws<UnRegisteredException>(
                 () => _sut.RentMovie(_defaultMovie.MovieTitle, "2017-01-01"));
@@ -96,9 +96,7 @@ namespace VideoStoreTests
              
     }
 
-    internal class UnRegisteredException :Exception
-    {
-    }
+   
 
    
 }
