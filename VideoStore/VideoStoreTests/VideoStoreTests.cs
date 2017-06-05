@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using VideoStore;
+using NSubstitute;
 
 namespace VideoStoreTests
 {
@@ -62,12 +63,15 @@ namespace VideoStoreTests
                 () => _sut.RegisterCustomer("Konny", "1730-12-24-1234"));
 
         }
-
         [Test]
+
         public void RegisterCostumerWithInvalidSSn_ThrowsException()
         {
             Assert.Throws<InvalidSsnException>(
                 () => _sut.RegisterCustomer("Booby", "111-8008"));
+
+            _rentalSystem.DidNotReceive().AddRental(Arg.Any<string>(), Arg.Any<string>());
+
         }   
              
     }

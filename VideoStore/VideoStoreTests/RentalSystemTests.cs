@@ -28,7 +28,7 @@ namespace VideoStoreTests
             {
                 MovieTitle = "jakten på det försvunna testet",
                 Id = 1
-
+                
             };
             _defaultCustomer = new Customer
             {
@@ -148,6 +148,7 @@ namespace VideoStoreTests
             Assert.Throws<DueDateException>(() => _sut.AddRental(movie2.MovieTitle, _defaultCustomer.Ssn));
             Assert.True(_sut.GetRentalsFor(_defaultCustomer.Ssn).Count == 1);
 
+            
 
         }
 
