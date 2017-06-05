@@ -58,10 +58,10 @@ namespace VideoStoreTests
         [Test]
         public void CantAddSameCostumerTwice()
         {
-            _sut.RegisterCustomer("Booby","1730-12-24-1234");
+            _sut.RegisterCustomer("Booby","1990-12-24");
 
             Assert.Throws<CostumerAllocationException>(
-                () => _sut.RegisterCustomer("Konny", "1730-12-24-1234"));
+                () => _sut.RegisterCustomer("Konny", "1990-12-24"));
 
         }
 

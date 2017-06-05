@@ -22,21 +22,22 @@ namespace VideoStore
 
         public void RegisterCustomer(string name, string socialSecurityNumber)
         {
-            var customer = new Customer(name,socialSecurityNumber);
+          
 
-            if (CheckValidSsn(socialSecurityNumber))
-            {
-                CustomerDataBase.Add(customer);
-            }
+            if (!CheckValidSsn(socialSecurityNumber))  throw new InvalidSsnException();
+            if(CustomerDataBase.Any(x => x.Ssn == socialSecurityNumber)) throw new CostumerAllocationException();
+
+           
             else
             {
-                throw new InvalidSsnException();
+                CustomerDataBase.Add(new Customer(name, socialSecurityNumber));
             }
+            
         }
 
         private bool CheckValidSsn(string ssn)
         {
-            Regex ssnReg = new Regex(@"[12]\d{ 3 } - (0[1 - 9] | 1[0 - 2]) - (0[1 - 9] |[12]\d | 3[01])");
+            Regex ssnReg = new Regex(@"^\d{4}-\d{2}-\d{2}$");
 
             return ssnReg.IsMatch(ssn);
         }

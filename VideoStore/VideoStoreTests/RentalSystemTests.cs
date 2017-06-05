@@ -32,10 +32,10 @@ namespace VideoStoreTests
             };
             _defaultCustomer = new Customer
             {
-                FirstName = "",
-                LastName = "",
-                Ssn = "1990-12-17-1111"
-            };         
+                Name = "string",
+                Ssn = "1990-10-10"
+            };
+
         }
 
 
