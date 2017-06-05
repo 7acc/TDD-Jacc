@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VideoStore
 {
-    class VideoStore : IVideoStore
+   public class TheVideoStore : IVideoStore
     {
         public void RegisterCustomer(string name, string socialSecurityNumber)
         {
