@@ -62,7 +62,14 @@ namespace VideoStore
 
         public void ReturnMovie(string movieTitle, string socialSecurityNumber)
         {
-            throw new NotImplementedException();
+            if (!_rentalSystem.GetRentalsFor(socialSecurityNumber).Any(x => x.MovieTitle == movieTitle))
+            {
+                throw new RentingException();
+            }
+            else
+            {
+                _rentalSystem.RemoveRental(movieTitle,socialSecurityNumber);
+            }
         }
 
        public List<Movie> LibraryOfMovies()
