@@ -47,12 +47,41 @@ namespace VideoStoreTests
             _sut.AddMovie(_defaultMovie);
             Assert.Throws<MovieAllocationException>(() => _sut.AddMovie(_defaultMovie));
 
-            List<Movie> movies = _sut.LibraryOfMovies().Where(x => x.MovieTitle == _defaultMovie.MovieTitle);
+            List<Movie> movies = _sut.LibraryOfMovies().Where(x => x.MovieTitle == _defaultMovie.MovieTitle).ToList();
 
 
-            Assert.AreEqual(movies.Count == 3);
+            Assert.AreEqual(movies.Count, 3);
         }
 
+        [Test]
+        public void CantAddSameCostumerTwice()
+        {
+            _sut.RegisterCustomer("Booby","1730-12-24-1234");
+
+            Assert.Throws<CostumerAllocationException>(
+                () => _sut.RegisterCustomer("Konny", "1730-12-24-1234"));
+
+        }
+
+        [Test]
+        public void RegisterCostumerWithInvalidSSn_ThrowsException()
+        {
+            Assert.Throws<InvalidSsnException>(
+                () => _sut.RegisterCustomer("Booby", "111-8008"));
+        }   
+             
+    }
+
+
+
+
+
+    internal class InvalidSsnException : Exception
+    {
+    }
+
+    internal class CostumerAllocationException : Exception
+    {
     }
 
     internal class MovieAllocationException : Exception
