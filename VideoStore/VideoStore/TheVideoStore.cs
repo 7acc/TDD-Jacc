@@ -44,7 +44,16 @@ namespace VideoStore
 
         public void AddMovie(Movie movie)
         {
-            throw new NotImplementedException();
+            if (MovieBank.Count(x => x.MovieTitle == movie.MovieTitle) < 3 && !string.IsNullOrEmpty(movie.MovieTitle))
+            {
+                MovieBank.Add(movie);
+            }
+
+      
+            else
+            {
+                throw new MovieAllocationException();
+            }
         }
 
         public void RentMovie(string movieTitle, string socialSecurityNumber)
@@ -61,7 +70,7 @@ namespace VideoStore
 
        public List<Movie> LibraryOfMovies()
        {
-           throw new NotImplementedException();
+           return MovieBank;
        }
 
        public IReadOnlyCollection<Customer> GetCustomers()
