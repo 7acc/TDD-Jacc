@@ -20,8 +20,9 @@ namespace VideoStoreTests
         [SetUp]
         public void SetUp()
         {
-            _sut = new RentalSystem();
             _dateTime = Substitute.For<IDateTimex>();
+            _sut = new RentalSystem(_dateTime);
+            
 
             _defaultMovie = new Movie
             {
@@ -69,7 +70,7 @@ namespace VideoStoreTests
         [Test]
         public void AllRentalsWillGet3DayslaterDueDate()
         {
-            var date = DateTime.Now.Date;
+            var date = _dateTime.Now().Date;
             _sut.AddRental(_defaultMovie.MovieTitle, _defaultCustomer.Ssn);
 
             var rental = _sut.GetRentalsFor(_defaultCustomer.Ssn).ElementAt(0);
@@ -142,7 +143,7 @@ namespace VideoStoreTests
             _sut.AddRental(movie1.MovieTitle,_defaultCustomer.Ssn);
 
 
-            _dateTime.Now().Returns(DateTime.Now.AddDays(4));
+            _dateTime.Now().Returns(_dateTime.Now().AddDays(4));
 
             Assert.Throws<DueDateException>(() => _sut.AddRental(movie2.MovieTitle, _defaultCustomer.Ssn));
             Assert.True(_sut.GetRentalsFor(_defaultCustomer.Ssn).Count == 1);

@@ -10,11 +10,13 @@ namespace VideoStore
 {
     public class RentalSystem : IRentals
     {
-        private List<Rental> rentals;
+        private readonly List<Rental> _rentals;
+        private IDateTimex _dateTime;
 
-        public RentalSystem()
+        public RentalSystem(IDateTimex dateTimeThing)
         {
-            this.rentals = new List<Rental>();
+            this._rentals = new List<Rental>();
+            this._dateTime = dateTimeThing;
         }
 
         public void AddRental(string movieTitle, string socialSecurityNumber)
@@ -29,7 +31,7 @@ namespace VideoStore
 
             else
             {
-                rentals.Add(new Rental(movieTitle,socialSecurityNumber,DateTime.Now.AddDays(3)));
+                _rentals.Add(new Rental(movieTitle,socialSecurityNumber, _dateTime.Now().AddDays(3)));
             }
         }
 
@@ -40,7 +42,7 @@ namespace VideoStore
 
         public List<Rental> GetRentalsFor(string socialSecurityNumber)
         {
-            return rentals.Where(x => x.Ssn == socialSecurityNumber).ToList();
+            return _rentals.Where(x => x.Ssn == socialSecurityNumber).ToList();
         }
 
 
@@ -49,9 +51,17 @@ namespace VideoStore
 
         private List<Rental> GetLateRentals(List<Rental> costumerRentals)
         {
-            return costumerRentals.Where(x => x.DueDate > DateTime.Now).ToList();
+            return costumerRentals.Where(x => x.DueDate < _dateTime.Now()).ToList();
         } 
     }
+
+
+
+
+
+
+
+
     public class RentalAllocationException : Exception
     {
         public RentalAllocationException(string message) : base(message)
