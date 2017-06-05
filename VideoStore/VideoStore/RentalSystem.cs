@@ -37,7 +37,17 @@ namespace VideoStore
 
         public void RemoveRental(string movieTitle, string socialSecurityNumber)
         {
-            throw new NotImplementedException();
+            var rentalToremove = _rentals.FirstOrDefault(x => x.MovieTitle == movieTitle && x.Ssn == socialSecurityNumber);
+
+            if (rentalToremove == null)
+            {
+                throw new RentalAllocationException("Error");
+            }
+            else
+            {
+                _rentals.Remove(rentalToremove);
+            }
+
         }
 
         public List<Rental> GetRentalsFor(string socialSecurityNumber)
