@@ -7,7 +7,7 @@ using VideoStore;
 
 namespace VideoStore
 {
-    class DateTimex : IDateTimex
+   public class DateTimex : IDateTimex
     {
         public DateTime Now()
         {

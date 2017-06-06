@@ -16,7 +16,6 @@ namespace VideoStoreTests
     {
         private IVideoStore _sut;
         private Movie _defaultMovie;
-        private Customer _defaultCustomer;
         private IRentals _rentalSystem;
         private IDateTimex _datetime;
 
