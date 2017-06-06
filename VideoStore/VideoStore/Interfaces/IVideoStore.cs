@@ -12,5 +12,6 @@ namespace VideoStore
       IReadOnlyCollection<Customer> GetCustomers();
         void ReturnMovie(string movieTitle, string socialSecurityNumber);
         List<Movie> LibraryOfMovies();
+        List<string> GetAllRentals();
     }
 }

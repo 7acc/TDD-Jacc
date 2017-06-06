@@ -55,6 +55,7 @@ namespace VideoStore
             return _rentals.Where(x => x.Ssn == socialSecurityNumber).ToList();
         }
 
+        
 
 
         //------------HELPERS--------------

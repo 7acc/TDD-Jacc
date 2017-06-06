@@ -24,7 +24,7 @@ namespace VideoStoreTests
         [SetUp]
         public void SetUp()
         {
-            _defaultMovie = new Movie {MovieTitle = "Testet som gick upp för en kulle och försvann"};
+            _defaultMovie = new Movie("Testet som gick upp för en kulle och försvann");
 
 
             _rentalSystem = Substitute.For<IRentals>();
@@ -33,9 +33,12 @@ namespace VideoStoreTests
         }
 
         [Test]
-        public void TitleCantBeEmpty_ThrowsException()
+        [TestCase("")]
+        [TestCase(" ")]
+        [TestCase(null)]
+        public void TitleCantBeEmpty_ThrowsException(string title)
         {
-            var noTitleMovie = new Movie {MovieTitle = ""};
+            var noTitleMovie = new Movie(title);
 
             Assert.Throws<MovieAllocationException>(() => _sut.AddMovie(noTitleMovie));
         }

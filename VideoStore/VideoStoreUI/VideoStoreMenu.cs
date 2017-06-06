@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,14 +25,37 @@ namespace VideoStoreUI
             _dateTime = new DateTimex();
             _rentalSystem = new RentalSystem(_dateTime);
             _videoStore = new TheVideoStore(_rentalSystem);
+
+            DemonStrationSetup();
+        }
+
+        private void DemonStrationSetup()
+        {
+            _videoStore.AddMovie(new Movie("Testet för längesedan"));
+            _videoStore.AddMovie(new Movie("jakten på det försvunna testet"));
+            _videoStore.AddMovie(new Movie("Testfadern"));
+            _videoStore.AddMovie(new Movie("test, test, och testare"));
+
+            _videoStore.RegisterCustomer("Bobby","1970-10-17");
+            _videoStore.RegisterCustomer("Konny", "1965-02-13");
+            _videoStore.RegisterCustomer("Evert", "1989-11-20");
+
+            _videoStore.RentMovie("Testet för längesedan", "1970-10-17");
+            _videoStore.RentMovie("Testet för längesedan", "1965-02-13");
+            _videoStore.RentMovie("Testet för längesedan", "1989-11-20");
+            _videoStore.RentMovie("Testfadern", "1970-10-17");
+            _videoStore.RentMovie("test, test, och testare", "1970-10-17");
+            _videoStore.RentMovie("jakten på det försvunna testet", "1965-02-13");
+            _videoStore.RentMovie("jakten på det försvunna testet", "1989-11-20");
+
         }
 
         public void Run()
         {
             Console.ForegroundColor = ConsoleColor.Green;
-          
+
             Console.WriteLine("this is a menu!");
-            
+
             MainMenu();
 
         }
@@ -51,6 +75,7 @@ namespace VideoStoreUI
                     "[4] Return Movie \n" +
                     "[5] List Movies \n" + //to be done
                     "[6] List Costumers \n" + //to be done ( with rented movies)
+                    "[7] list rentals \n"+
                     "[Q] Quit");
 
                 var navigationChoice = Console.ReadKey(true).Key;
@@ -58,8 +83,8 @@ namespace VideoStoreUI
                 switch (navigationChoice)
                 {
                     case ConsoleKey.D1:
-                    case ConsoleKey.NumPad1:                        
-                    
+                    case ConsoleKey.NumPad1:
+
                         AddMovieMenu();
                         break;
 
@@ -81,17 +106,25 @@ namespace VideoStoreUI
                         ReturnMovieMenu();
                         break;
 
-                        case ConsoleKey.D5:
-                        case ConsoleKey.NumPad5:
+                    case ConsoleKey.D5:
+                    case ConsoleKey.NumPad5:
 
                         ListMovies();
+                        Console.ReadKey();
                         break;
 
-                        case ConsoleKey.D6:
-                            case ConsoleKey.NumPad6:
+                    case ConsoleKey.D6:
+                    case ConsoleKey.NumPad6:
                         ListCustomers();
+                        Console.ReadKey();
                         break;
 
+                    case ConsoleKey.D7:
+                    case ConsoleKey.NumPad7:
+
+                        PrintRentals();
+                        Console.ReadKey();
+                        break;
                     case ConsoleKey.Q:
 
                         loop = false;
@@ -109,12 +142,19 @@ namespace VideoStoreUI
             return;
         }
 
+        private void PrintRentals()
+        {
+            Console.Clear();
+            _videoStore.GetAllRentals().ForEach(Console.WriteLine);
+           
+        }
+
         private void ReturnMovieMenu()
         {
 
             bool loop = true;
             while (loop)
-            {              
+            {
                 ReturnMovie();
 
                 Console.WriteLine($"Do you want to Return another one?  Y/N");
@@ -157,6 +197,9 @@ namespace VideoStoreUI
                 bool loop = true;
                 while (loop)
                 {
+                    Console.WriteLine("Titles Availible\n------------------\n");
+                    ListMovies();
+                    Console.WriteLine();
                     RentMovie();
 
                     Console.WriteLine($"Do you want to Rent another one?  Y/N");
@@ -285,9 +328,9 @@ namespace VideoStoreUI
 
             foreach (var movie in movieList)
             {
-                Console.WriteLine($"Title:{movie.MovieTitle}\n");
+                Console.WriteLine($"Title:{movie.MovieTitle}");
             }
-            
+
         }
 
         private void ListCustomers()
@@ -296,7 +339,7 @@ namespace VideoStoreUI
 
             foreach (var customer in customerList)
             {
-                Console.WriteLine($"Name:{customer.Name}   SSN:{customer.Ssn}\n");
+                Console.WriteLine($"Name:{customer.Name}   SSN:{customer.Ssn}");
             }
         }
     }

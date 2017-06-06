@@ -22,14 +22,13 @@ namespace VideoStoreTests
         {
             _dateTime = Substitute.For<IDateTimex>();
             _sut = new RentalSystem(_dateTime);
-            
 
-            _defaultMovie = new Movie
-            {
-                MovieTitle = "jakten på det försvunna testet",
-                Id = 1
+
+            _defaultMovie = new Movie("jakten på det försvunna testet");
+            
+                       
                 
-            };
+            
             _defaultCustomer = new Customer
             {
                 Name = "string",
@@ -84,7 +83,7 @@ namespace VideoStoreTests
         public void CanRentManyMovies()
         {
             var movie1 = _defaultMovie;
-            var movie2 = new Movie {MovieTitle = "Testet för länge sedan"};
+            var movie2 = new Movie("Testet för länge sedan");
 
             _sut.AddRental(movie1.MovieTitle, _defaultCustomer.Ssn);
             _sut.AddRental(movie2.MovieTitle, _defaultCustomer.Ssn);
@@ -101,9 +100,9 @@ namespace VideoStoreTests
         public void RentingMoreThan3Movies_ThrowsExceoption()
         {
             var movie1 = _defaultMovie;
-            var movie2 = new Movie { MovieTitle = "Testet för länge sedan" };
-            var movie3 = new Movie { MovieTitle = "JungelTestet"};
-            var movie4 = new Movie { MovieTitle = "Tests of the Caribean"};
+            var movie2 = new Movie("Testet för länge sedan");
+            var movie3 = new Movie("JungelTestet");
+            var movie4 = new Movie("Tests of the Caribean");
 
             _sut.AddRental(movie1.MovieTitle,_defaultCustomer.Ssn);
             _sut.AddRental(movie2.MovieTitle, _defaultCustomer.Ssn);
@@ -139,7 +138,7 @@ namespace VideoStoreTests
         public void RentingWithLateDueDate_ThrowsEsception()
         {
             var movie1 = _defaultMovie;
-            var movie2 = new Movie { MovieTitle = "Testet för länge sedan" };
+            var movie2 = new Movie("Testet för länge sedan");
             _sut.AddRental(movie1.MovieTitle,_defaultCustomer.Ssn);
 
 
