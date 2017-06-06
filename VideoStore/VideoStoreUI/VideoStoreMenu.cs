@@ -28,7 +28,10 @@ namespace VideoStoreUI
 
         public void Run()
         {
+            Console.ForegroundColor = ConsoleColor.Green;
+          
             Console.WriteLine("this is a menu!");
+            
             MainMenu();
 
         }
@@ -41,12 +44,13 @@ namespace VideoStoreUI
 
                 Console.Clear();
                 Console.WriteLine(
+                    "\n\n" +
                     "[1] Add Movie\n" +
                     "[2] Register Costumer\n" +
                     "[3] Rent Movie \n" +
                     "[4] Return Movie \n" +
-                    "[5] List Movies \n" +
-                    "[6] List Costumers \n" +
+                    "[5] List Movies \n" + //to be done
+                    "[6] List Costumers \n" + //to be done ( with rented movies)
                     "[Q] Quit");
 
                 var navigationChoice = Console.ReadKey(true).Key;
@@ -92,7 +96,7 @@ namespace VideoStoreUI
 
                         loop = false;
                         Console.Clear();
-                        Console.Write("\n\n\n\n\n\n.......BYE!.......");
+                        Console.Write("\n\n\n\n\n\n\n\n.......BYE!.......");
                         Thread.Sleep(1500);
                         break;
 
