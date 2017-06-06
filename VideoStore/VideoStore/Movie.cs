@@ -9,6 +9,12 @@ namespace VideoStore
 {
    public class Movie
     {
+       public Movie(string title)
+       {
+           MovieTitle = title;
+           Id = 0;
+       }
+
        public int Id { get; set; }
 
        public string MovieTitle { get; set; }
