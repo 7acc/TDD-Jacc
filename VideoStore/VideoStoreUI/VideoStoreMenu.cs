@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using NUnit.Framework.Internal;
 using VideoStore;
 
 namespace VideoStoreUI
@@ -74,6 +75,17 @@ namespace VideoStoreUI
                     case ConsoleKey.NumPad4:
 
                         ReturnMovieMenu();
+                        break;
+
+                        case ConsoleKey.D5:
+                        case ConsoleKey.NumPad5:
+
+                        ListMovies();
+                        break;
+
+                        case ConsoleKey.D6:
+                            case ConsoleKey.NumPad6:
+                        ListCustomers();
                         break;
 
                     case ConsoleKey.Q:
@@ -261,6 +273,27 @@ namespace VideoStoreUI
                 }
             }
 
+        }
+
+        private void ListMovies()
+        {
+            var movieList = _videoStore.LibraryOfMovies();
+
+            foreach (var movie in movieList)
+            {
+                Console.WriteLine($"Title:{movie.MovieTitle}\n");
+            }
+            
+        }
+
+        private void ListCustomers()
+        {
+            var customerList = _videoStore.GetCustomers();
+
+            foreach (var customer in customerList)
+            {
+                Console.WriteLine($"Name:{customer.Name}   SSN:{customer.Ssn}\n");
+            }
         }
     }
 }
